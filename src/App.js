@@ -17,6 +17,26 @@ function App() {
       });
   }
 
+  function getSubscription() {
+    navigator.serviceWorker.ready.then((registration) => {
+      registration.pushManager.getSubscription().then((subscription) => {
+        console.log(subscription);
+      });
+    });
+  }
+
+  function subscribe() {
+    navigator.serviceWorker.ready.then((registration) => {
+      registration.pushManager
+        .subscribe({
+          userVisibleOnly: true,
+        })
+        .then((subscription) => {
+          console.log(subscription);
+        });
+    });
+  }
+
   return (
     <div className="App">
       <header className="App-header">
@@ -37,6 +57,18 @@ function App() {
           style={{ backgroundColor: "green", color: "white" }}
         >
           Get Registration
+        </button>
+        <button
+          onClick={getSubscription}
+          style={{ backgroundColor: "blue", color: "white" }}
+        >
+          Get Subscription
+        </button>
+        <button
+          onClick={subscribe}
+          style={{ backgroundColor: "red", color: "white" }}
+        >
+          Subscribe
         </button>
       </header>
     </div>
