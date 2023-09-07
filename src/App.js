@@ -2,6 +2,9 @@ import React from "react";
 import logo from "./logo.svg";
 import "./App.css";
 
+const applicationServerKey =
+  "BJMAYviNelSpnZvVRijrryXznUTGwB6l2Fb7VRqWU0ndeKBG78oSvSJWjHxlzAtk_Z2CStrWLCp11jfJMST4di0";
+
 function App() {
   function getRegistration() {
     navigator.serviceWorker
@@ -35,6 +38,7 @@ function App() {
       registration.pushManager
         .subscribe({
           userVisibleOnly: true,
+          applicationServerKey,
         })
         .then((subscription) => {
           console.log(subscription);
