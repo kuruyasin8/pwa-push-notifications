@@ -19,9 +19,14 @@ function App() {
 
   function getSubscription() {
     navigator.serviceWorker.ready.then((registration) => {
-      registration.pushManager.getSubscription().then((subscription) => {
-        console.log(subscription);
-      });
+      registration.pushManager
+        .getSubscription()
+        .then((subscription) => {
+          console.log(subscription);
+        })
+        .catch((err) => {
+          console.log("Service Worker registration failed: ", err);
+        });
     });
   }
 
@@ -33,6 +38,9 @@ function App() {
         })
         .then((subscription) => {
           console.log(subscription);
+        })
+        .catch((err) => {
+          console.log("Service Worker subscription failed: ", err);
         });
     });
   }
