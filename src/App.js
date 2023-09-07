@@ -1,8 +1,22 @@
-import React from 'react';
-import logo from './logo.svg';
-import './App.css';
+import React from "react";
+import logo from "./logo.svg";
+import "./App.css";
 
 function App() {
+  navigator.serviceWorker.getRegistration().then(function (registration) {
+    if (registration) {
+      registration.pushManager.getSubscription().then(function (subscription) {
+        if (subscription) {
+          console.log(subscription);
+        } else {
+          console.log("no subscription");
+        }
+      });
+    } else {
+      console.log("no registration");
+    }
+  });
+
   return (
     <div className="App">
       <header className="App-header">
