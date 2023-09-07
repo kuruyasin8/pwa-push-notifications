@@ -3,19 +3,19 @@ import logo from "./logo.svg";
 import "./App.css";
 
 function App() {
-  navigator.serviceWorker.getRegistration().then(function (registration) {
-    if (registration) {
-      registration.pushManager.getSubscription().then(function (subscription) {
-        if (subscription) {
+  function getRegistration() {
+    navigator.serviceWorker
+      .register("/service-worker.js")
+      .then((registration) => {
+        console.log("Service Worker registered", registration);
+        registration.pushManager.getSubscription().then((subscription) => {
           console.log(subscription);
-        } else {
-          console.log("no subscription");
-        }
+        });
+      })
+      .catch((err) => {
+        console.log("Service Worker registration failed: ", err);
       });
-    } else {
-      console.log("no registration");
-    }
-  });
+  }
 
   return (
     <div className="App">
@@ -32,6 +32,12 @@ function App() {
         >
           Learn React
         </a>
+        <button
+          onClick={getRegistration}
+          style={{ backgroundColor: "green", color: "white" }}
+        >
+          Get Registration
+        </button>
       </header>
     </div>
   );
