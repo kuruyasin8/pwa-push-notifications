@@ -6,6 +6,8 @@ const applicationServerKey =
   "BJMAYviNelSpnZvVRijrryXznUTGwB6l2Fb7VRqWU0ndeKBG78oSvSJWjHxlzAtk_Z2CStrWLCp11jfJMST4di0";
 
 function App() {
+  const reg = React.useRef(null);
+
   function getRegistration() {
     navigator.serviceWorker
       .register("/service-worker.js")
@@ -15,7 +17,7 @@ function App() {
           console.log(subscription);
         });
 
-        registration.showNotification("Hello world!");
+        reg.current = registration;
       })
       .catch((err) => {
         console.log("Service Worker registration failed: ", err);
@@ -83,6 +85,15 @@ function App() {
           style={{ backgroundColor: "red", color: "white" }}
         >
           Subscribe
+        </button>
+        <button
+          onClick={() => {
+            // show local notification
+            reg.current.showNotification("Hello world!");
+          }}
+          style={{ backgroundColor: "purple", color: "white" }}
+        >
+          Show Notification
         </button>
       </header>
     </div>
