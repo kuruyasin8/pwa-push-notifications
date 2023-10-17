@@ -14,6 +14,8 @@ function App() {
         registration.pushManager.getSubscription().then((subscription) => {
           console.log(subscription);
         });
+
+        registration.showNotification("Hello world!");
       })
       .catch((err) => {
         console.log("Service Worker registration failed: ", err);
