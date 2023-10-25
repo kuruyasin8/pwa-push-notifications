@@ -92,7 +92,7 @@ const showLocalNotification = (title, body, swRegistration) => {
 
 const cacheName = `pwa_push_notifications_${process.env.VERCEL_GIT_COMMIT_SHA}`;
 
-self.addEventListener("load", () => {
+window.addEventListener("load", () => {
   console.log(cacheName);
   caches.keys().then((names) => {
     names.forEach((name) => {
@@ -106,6 +106,7 @@ self.addEventListener("load", () => {
 self.addEventListener("fetch", (event) => {
   // Check if this is a navigation request
   if (event.request.mode === "navigate") {
+    console.log(`fetching with cache name ${cacheName}`);
     // Open the cache
     event.respondWith(
       caches.open(cacheName).then((cache) => {
