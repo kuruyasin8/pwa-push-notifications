@@ -93,6 +93,7 @@ const showLocalNotification = (title, body, swRegistration) => {
 const cacheName = `pwa_push_notifications_${process.env.VERCEL_GIT_COMMIT_SHA}`;
 
 self.addEventListener("load", () => {
+  console.log(cacheName);
   caches.keys().then((names) => {
     names.forEach((name) => {
       if (name !== cacheName) {
