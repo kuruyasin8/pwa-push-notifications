@@ -92,10 +92,11 @@ const showLocalNotification = (title, body, swRegistration) => {
 
 const cacheName = `pwa_push_notifications_${process.env.REACT_APP_VERCEL_GIT_COMMIT_SHA}`;
 
-console.log("self cache name", cacheName);
+self.addEventListener("install", (event) => {
+  event.waitUntil(caches.open(cacheName));
+});
 
 self.addEventListener("load", () => {
-  console.log(cacheName);
   caches.keys().then((names) => {
     names.forEach((name) => {
       if (name !== cacheName) {
@@ -108,7 +109,6 @@ self.addEventListener("load", () => {
 self.addEventListener("fetch", (event) => {
   // Check if this is a navigation request
   if (event.request.mode === "navigate") {
-    console.log(`fetching with cache name ${cacheName}`);
     // Open the cache
     event.respondWith(
       caches.open(cacheName).then((cache) => {
