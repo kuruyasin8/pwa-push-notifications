@@ -91,6 +91,7 @@ const showLocalNotification = (title, body, swRegistration) => {
 };
 
 const cacheName = `pwa_push_notifications_${process.env.REACT_APP_VERCEL_GIT_COMMIT_SHA}`;
+// pwa_push_notifications_3445299c451f831a100b15d61b84f403075eace6
 
 self.addEventListener("install", (event) => {
   event.waitUntil(caches.open(cacheName));
